@@ -16,12 +16,13 @@ class UserController extends Controller
 {
     public function index()
     {
-//        return UserResource::collection(User::paginate(10));
+        $this->authorize('view', 'users'); // ability, model
         return UserResource::collection(User::with('role')->paginate(10));
     }
 
     public function store(UserCreateRequest $request)
     {
+        $this->authorize('edit', 'users');
         $user = User::create(
             $request->only('first_name', 'last_name', 'email', 'role_id')
             + ['password' => Hash::make('password')]
@@ -32,11 +33,13 @@ class UserController extends Controller
 
     public function show($id)
     {
+        $this->authorize('view', 'users');
         return new UserResource(User::with('role')->find($id));
     }
 
     public function update(UserUpdateRequest $request, $id)
     {
+        $this->authorize('edit', 'users');
         $user = User::find($id);
         $user->update($request->only('first_name', 'last_name', 'email', 'role_id'));
 
@@ -45,6 +48,7 @@ class UserController extends Controller
 
     public function destroy($id)
     {
+        $this->authorize('edit', 'users');
         User::destroy($id);
 
         return \response(null, Response::HTTP_NO_CONTENT);
