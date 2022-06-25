@@ -14,6 +14,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
+    /**
+     * @OA\Get(path="/users",
+     *   @OA\Response(response="200",
+     *      description="User Collection"
+     *   )
+     * )
+     */
     public function index()
     {
         $this->authorize('view', 'users'); // ability, model
