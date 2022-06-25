@@ -2,11 +2,11 @@
 
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\ImageController;
+use App\Http\Controllers\Api\V1\OrderController;
 use App\Http\Controllers\Api\V1\PermissionController;
 use App\Http\Controllers\Api\V1\ProductController;
 use App\Http\Controllers\Api\V1\RoleController;
 use App\Http\Controllers\Api\V1\UserController;
-use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('register', [AuthController::class, 'register']);
@@ -22,5 +22,7 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('permissions', [PermissionController::class, 'index']);
     Route::post('upload', [ImageController::class, 'upload']);
     Route::apiResource('orders', OrderController::class)->only('index', 'show');
+    Route::post('export', [OrderController::class, 'export']);
+    Route::get('chart', [OrderController::class, 'chart']);
 });
 
