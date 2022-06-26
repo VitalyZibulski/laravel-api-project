@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
+Route::apiResource('orders', OrderController::class)->only('index', 'show');
 Route::middleware('auth:sanctum')->group(function() {
     Route::get('user', [AuthController::class, 'user']);
     Route::post('logout', [AuthController::class, 'logout']);
@@ -21,7 +22,6 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::apiResource('products', ProductController::class);
     Route::get('permissions', [PermissionController::class, 'index']);
     Route::post('upload', [ImageController::class, 'upload']);
-    Route::apiResource('orders', OrderController::class)->only('index', 'show');
     Route::post('export', [OrderController::class, 'export']);
     Route::get('chart', [OrderController::class, 'chart']);
 });
